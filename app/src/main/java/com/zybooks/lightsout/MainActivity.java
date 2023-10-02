@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -28,6 +29,19 @@ public class MainActivity extends AppCompatActivity {
         // Add the same click handler to all grid buttons
         for (int buttonIndex = 0; buttonIndex < mLightGrid.getChildCount(); buttonIndex++) {
             Button gridButton = (Button) mLightGrid.getChildAt(buttonIndex);
+            gridButton.setOnLongClickListener(view -> {
+                int r = mLightGrid.indexOfChild(view) / LightsOutGame.GRID_SIZE;
+                int c = mLightGrid.indexOfChild(view) % LightsOutGame.GRID_SIZE;
+                if (r == 0 && c == 0)
+                {
+                    mGame.trick();
+                    setButtonColors();
+                    Toast.makeText(this, R.string.congrats, Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                else
+                    return false;
+            });
             gridButton.setOnClickListener(this::onLightButtonClick);
         }
 
@@ -77,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (mGame.isLightOn(row, col)) {
                 gridButton.setBackgroundColor(mLightOnColor);
+                gridButton.setContentDescription(getString(R.string.on));
             } else {
                 gridButton.setBackgroundColor(mLightOffColor);
+                gridButton.setContentDescription(getString(R.string.off));
             }
         }
     }

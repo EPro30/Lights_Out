@@ -74,4 +74,13 @@ public class LightsOutGame {
         }
     }
 
+    public void trick()
+    {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                mLightsGrid[row][col] = false;
+            }
+        }
+    }
+
 }
