@@ -13,6 +13,12 @@
         android:theme="@style/Theme.LightsOut"
         tools:targetApi="31">
         <activity
+            android:name=".ColorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

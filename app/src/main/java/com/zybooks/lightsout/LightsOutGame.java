@@ -52,6 +52,7 @@ public class LightsOutGame {
         return true;
     }
 
+    // getState() returns a string representing the on/off state of the light grid
     public String getState() {
         StringBuilder boardString = new StringBuilder();
         for (int row = 0; row < GRID_SIZE; row++) {
@@ -64,6 +65,7 @@ public class LightsOutGame {
         return boardString.toString();
     }
 
+    // setState() returns the light grid back to the same on/off state as before
     public void setState(String gameState) {
         int index = 0;
         for (int row = 0; row < GRID_SIZE; row++) {

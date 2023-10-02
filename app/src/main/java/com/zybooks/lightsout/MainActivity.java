@@ -1,5 +1,6 @@
 package com.zybooks.lightsout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
             startGame();
         }
         else {
+            // When MainActivity is recreated, the savedInstanceState parameter is assigned the previously
+            // saved Bundle containing gameState. The LightsOutGame object is recreated.
+            // The light grid state is extracted from savedInstanceState.
             String gameState = savedInstanceState.getString(GAME_STATE);
             mGame.setState(gameState);
             setButtonColors();
@@ -103,9 +107,21 @@ public class MainActivity extends AppCompatActivity {
         startGame();
     }
 
+    // OnSaveInstanceState() is called when the device is rotated.
+    // The LightsOutGame object is destroyed along with MainActivity.
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(GAME_STATE, mGame.getState());
+    }
+
+    /*
+    Pressing Help calls the click callback onHelpClick(), which creates an intent using the name of the activity to be started.
+    startActivity() starts the activity named in the intent. HelpActivity starts and displays on top of MainActivity.
+    Pressing the device's Back button destroys HelpActivity and restarts MainActivity.
+    */
+    public void onHelpClick(View view) {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
     }
 }
